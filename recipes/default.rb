@@ -43,16 +43,18 @@ template node['supervisor']['conffile'] do
   owner "root"
   group "root"
   mode "644"
-  variables({
-    :inet_port => node['supervisor']['inet_port'],
-    :inet_username => node['supervisor']['inet_username'],
-    :inet_password => node['supervisor']['inet_password'],
-    :supervisord_minfds => node['supervisor']['minfds'],
-    :supervisord_minprocs => node['supervisor']['minprocs'],
-    :supervisord_nocleanup => node['supervisor']['nocleanup'],
-    :supervisor_version => node['supervisor']['version'],
-    :socket_file => node['supervisor']['socket_file'],
-  })
+  variables(lazy do
+               {
+                :inet_port => node['supervisor']['inet_port'],
+                :inet_username => node['supervisor']['inet_username'],
+                :inet_password => node['supervisor']['inet_password'],
+                :supervisord_minfds => node['supervisor']['minfds'],
+                :supervisord_minprocs => node['supervisor']['minprocs'],
+                :supervisord_nocleanup => node['supervisor']['nocleanup'],
+                :supervisor_version => node['supervisor']['version'],
+                :socket_file => node['supervisor']['socket_file'],
+               }
+            end)
 end
 
 directory node['supervisor']['log_dir'] do
